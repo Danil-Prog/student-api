@@ -23,4 +23,14 @@ public class Student {
 
     @Column(name = "course")
     private int course;
+
+    public Student(String firstname, String lastname, int course) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.course = course;
+    }
+
+    public Student() {
+
+    }
 }
