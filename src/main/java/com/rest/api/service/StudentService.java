@@ -40,4 +40,8 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
+    public void saveListStudent(List<Student> studentList) {
+        studentRepository.saveAll(studentList);
+    }
+
 }
