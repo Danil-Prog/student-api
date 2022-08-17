@@ -20,8 +20,8 @@ public class StudentController {
 
 
     @GetMapping("/students")
-    public List<Student> getAllStudent(){
-        return studentService.getListStudents();
+    public ResponseEntity<List<Student>> getAllStudent(){
+        return new ResponseEntity<>(studentService.getListStudents(), HttpStatus.OK);
     }
 
     @GetMapping("/students/{id}")
@@ -32,8 +32,12 @@ public class StudentController {
 
     @PostMapping("/students/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable long id) {
-        studentService.deleteStudent(id);
-        return new ResponseEntity<>("Student deleted successfully!", HttpStatus.OK);
+        try {
+            studentService.deleteStudent(id);
+            return new ResponseEntity<>("Student deleted successfully!", HttpStatus.OK);
+        }catch (ResourceNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/students")
