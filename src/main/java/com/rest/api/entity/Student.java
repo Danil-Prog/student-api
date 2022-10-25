@@ -4,6 +4,8 @@ package com.rest.api.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,6 +26,9 @@ public class Student {
     @Column(name = "course")
     private int course;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
+    private List<Task> tasks = new ArrayList<>();
+
     public Student(String firstname, String lastname, int course) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -32,5 +37,9 @@ public class Student {
 
     public Student() {
 
+    }
+
+    public void createTask(Task task){
+        tasks.add(task);
     }
 }
