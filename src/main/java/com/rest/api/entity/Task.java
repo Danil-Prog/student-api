@@ -1,6 +1,5 @@
 package com.rest.api.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,8 +24,8 @@ public class Task {
     private String body;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "student_id")
-    private Student student;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "date_of_creation")
     @DateTimeFormat(pattern = "dd.MM.YYYY")
@@ -35,9 +34,9 @@ public class Task {
     public Task() {
     }
 
-    public Task(String header, String body, Student student) {
+    public Task(String header, String body, User user) {
         this.header = header;
         this.body = body;
-        this.student = student;
+        this.user = user;
     }
 }
