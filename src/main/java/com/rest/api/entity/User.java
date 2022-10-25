@@ -9,8 +9,8 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "students")
-public class Student {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,16 +26,16 @@ public class Student {
     @Column(name = "course")
     private int course;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Task> tasks = new ArrayList<>();
 
-    public Student(String firstname, String lastname, int course) {
+    public User(String firstname, String lastname, int course) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.course = course;
     }
 
-    public Student() {
+    public User() {
 
     }
 

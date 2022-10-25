@@ -1,8 +1,8 @@
 package com.rest.api.data;
 
 import com.github.javafaker.Faker;
-import com.rest.api.entity.Student;
-import com.rest.api.service.StudentService;
+import com.rest.api.entity.User;
+import com.rest.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -17,7 +17,7 @@ import java.util.stream.IntStream;
 public class SampleDataLoader implements CommandLineRunner {
 
     @Autowired
-    private StudentService studentService;
+    private UserService userService;
     private final Faker faker = new Faker();
 
     @Override
@@ -25,15 +25,15 @@ public class SampleDataLoader implements CommandLineRunner {
         log.info("Loading Sample data...");
 
         //create 100 rows of student in the database
-        List<Student> students = IntStream.rangeClosed(1, 100)
-                .mapToObj(i -> new Student(
+        List<User> users = IntStream.rangeClosed(1, 100)
+                .mapToObj(i -> new User(
                         faker.name().firstName(),
                         faker.name().lastName(),
                         faker.random().nextInt(1,4)
                 ))
                 .collect(Collectors.toList());
 
-        studentService.saveListStudent(students);
+        userService.saveListStudent(users);
     }
 
 }
