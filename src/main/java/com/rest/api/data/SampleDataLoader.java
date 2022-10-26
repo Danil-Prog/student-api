@@ -1,6 +1,7 @@
 package com.rest.api.data;
 
 import com.github.javafaker.Faker;
+import com.rest.api.entity.Role;
 import com.rest.api.entity.User;
 import com.rest.api.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,10 @@ public class SampleDataLoader implements CommandLineRunner {
                 .mapToObj(i -> new User(
                         faker.name().firstName(),
                         faker.name().lastName(),
-                        faker.random().nextInt(1,4)
+                        faker.internet().emailAddress(),
+                        faker.random().nextInt(1,4),
+                        Role.ROLE_STUDENT,
+                        faker.internet().password()
                 ))
                 .collect(Collectors.toList());
 
