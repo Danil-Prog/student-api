@@ -23,16 +23,29 @@ public class User {
     @Column(name = "lastname")
     private String lastname;
 
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "course")
     private int course;
+
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Task> tasks = new ArrayList<>();
 
-    public User(String firstname, String lastname, int course) {
+    public User(String firstname, String lastname, String email, int course, Role role, String password) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.course = course;
+        this.role = role;
+        this.email = email;
+        this.password = password;
     }
 
     public User() {

@@ -1,10 +1,12 @@
 package com.rest.api.service;
 
 
+import com.rest.api.entity.Role;
 import com.rest.api.entity.User;
 import com.rest.api.exception.ResourceNotFoundException;
 import com.rest.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +17,20 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     public List<User> getListStudents(){
         return userRepository.findAll();
+    }
+
+    public User register(User user) {
+        Role roleUser = Role.ROLE_STUDENT;
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(roleUser);
+
+        User registerUser = userRepository.save(user);
+        return registerUser;
     }
 
     public User getStudentById(long id) {
@@ -38,6 +51,10 @@ public class UserService {
 
     public void saveListStudent(List<User> userList) {
         userRepository.saveAll(userList);
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByEmail(username);
     }
 
 }
